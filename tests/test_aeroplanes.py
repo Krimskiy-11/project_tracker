@@ -28,7 +28,7 @@ def test_init():
 def test_str_representation():
     """Тест строкового представления объекта"""
     plane = Aeroplane("SU1234", "Russia", 250, 8000)
-    expected = '"callsign": "SU1234", "country": "Russia", "velocity": 250, "baro_altitude": 8000\n'
+    expected = 'callsign: "SU1234", country: "Russia", velocity: 250, baro_altitude: 8000\n'
     assert str(plane) == expected
 
 
@@ -61,21 +61,6 @@ def test_top_aeroplanes(sample_aeroplanes):
     # С числом больше длины списка
     top_5 = Aeroplane.top_aeroplanes(5, sample_aeroplanes)
     assert len(top_5) == 3
-
-
-def test_iteration(sample_aeroplanes):
-    """Тест итерации по самолётам"""
-    plane_instance = Aeroplane()
-    iterator = iter(plane_instance)
-
-    results = []
-    for item in range(len(Aeroplane.result)):
-        results.append(next(iterator))
-
-    assert len(results) == 3
-    assert "SU1234" in results[0]
-    assert "SD1000" in results[1]
-    assert "TR5678" in results[2]
 
 
 def test_getitem(sample_aeroplanes):

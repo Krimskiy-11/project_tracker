@@ -1,5 +1,7 @@
 class Aeroplane:
     """Класс для работы с информацией о самолетах."""
+    __slots__ = ('callsign', 'country', 'velocity', 'baro_altitude')
+
     result = []
 
     def __init__(self, callsign=None, country=None, velocity=None, baro_altitude=None):
@@ -10,10 +12,10 @@ class Aeroplane:
 
     def __str__(self):
         return (
-            f'"callsign": "{self.callsign}", '
-            f'"country": "{self.country}", '
-            f'"velocity": {self.velocity}, '
-            f'"baro_altitude": {self.baro_altitude}\n'
+            f'callsign: "{self.callsign}", '
+            f'country: "{self.country}", '
+            f'velocity: {self.velocity}, '
+            f'baro_altitude: {self.baro_altitude}\n'
         )
 
     @classmethod
@@ -67,20 +69,24 @@ class Aeroplane:
                 res.append(item)
         return res
 
-    def __gt__(self, other):
-        return Aeroplane.result > other
+    def __ge__(self, other):
+        """
+        Магический метод для сравнения самолётов по высоте (больше или равно).
+        """
+        if isinstance(other, Aeroplane):
+            return self.baro_altitude >= other.baro_altitude
+        elif isinstance(other, (int, float)):
+            return self.baro_altitude >= other
+        return NotImplemented
 
     @classmethod
-    def filter_altitude_range(cls, altitude: int, aeroplane):
+    def filter_altitude_range(cls, altitude: int, aeroplanes):
         """
-        Метод для фильтрации самолетов по высоте полета.
+        Метод для фильтрации самолётов по высоте полёта (больше или равно заданной).
+        Использует магический метод __ge__.
         """
-        res = []
-        for item in aeroplane:
-            if item.baro_altitude is not None and item.baro_altitude > altitude:
-                res.append(item)
-        return res
-
+        return [item for item in aeroplanes
+                if item.baro_altitude is not None and item >= altitude]
 
 # {
 #     "time": 1766142246,                 // UNIX-время сервера OpenSky (секунды)
