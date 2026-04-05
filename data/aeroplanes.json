@@ -1,0 +1,92 @@
+[
+    {
+        "callsign": "TVF43WX ",
+        "country": "France",
+        "velocity": 241.67,
+        "baro_altitude": 11856.72
+    },
+    {
+        "callsign": "EZY91QY ",
+        "country": "United Kingdom",
+        "velocity": 241.32,
+        "baro_altitude": 11262.36
+    },
+    {
+        "callsign": "TVF13NV ",
+        "country": "France",
+        "velocity": 222,
+        "baro_altitude": 11277.6
+    },
+    {
+        "callsign": "NSZ3YT  ",
+        "country": "Sweden",
+        "velocity": 245.23,
+        "baro_altitude": 10972.8
+    },
+    {
+        "callsign": "NSZ4371 ",
+        "country": "Sweden",
+        "velocity": 254.09,
+        "baro_altitude": 10363.2
+    },
+    {
+        "callsign": "TVF37NP ",
+        "country": "France",
+        "velocity": 83.49,
+        "baro_altitude": 1104.9
+    },
+    {
+        "callsign": "UAL58   ",
+        "country": "United States",
+        "velocity": 174.57,
+        "baro_altitude": 3048
+    },
+    {
+        "callsign": "ASA628  ",
+        "country": "United States",
+        "velocity": 237.01,
+        "baro_altitude": 10668
+    },
+    {
+        "callsign": "SPFMS   ",
+        "country": "Poland",
+        "velocity": 55.85,
+        "baro_altitude": 487.68
+    },
+    {
+        "callsign": "AEE738  ",
+        "country": "Greece",
+        "velocity": 232.09,
+        "baro_altitude": 10972.8
+    },
+    {
+        "callsign": "UAL2113",
+        "country": "United States",
+        "velocity": 213.96,
+        "baro_altitude": 6400.8
+    },
+    {
+        "callsign": "N759PA",
+        "country": "United States",
+        "velocity": 0.0,
+        "baro_altitude": null
+    },
+    {
+        "callsign": "SCX211",
+        "country": "United States",
+        "velocity": 245.91,
+        "baro_altitude": 12496.8
+    },
+    {
+        "callsign": "N4793F",
+        "country": "United States",
+        "velocity": 56.62,
+        "baro_altitude": 822.96
+    },
+    {
+        "callsign": "ASA472",
+        "country": "United States",
+        "velocity": 5.66,
+        "baro_altitude": null
+    }
+]

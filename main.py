@@ -1,35 +1,62 @@
-# Создание экземпляра класса для работы с API сайтов с самолетами
-# api = AeroplanesAPI()
-#
-# # Получение информации о самолетах с opensky-network.org
-# aeroplanes = api.get_aeroplanes(‘Spain’)
-#
-# # Преобразование набора данных в список объектов
-# aeroplanes = Aeroplane.cast_to_object_list(aeroplanes)
-#
-# # Пример работы контструктора класса с одним самолетом
-# aeroplane = Aeroplane("UAL1621", "United States", 268.79, 10203.18)
-#
-# # Сохранение информации в файл
-# json_saver = JSONSaver()
-# json_saver.add_aeroplane(vacancy)
-# json_saver.delete_aeroplane(vacancy)
-#
-# # Функция для взаимодействия с пользователем
-# def user_interaction():
-#     country = input("Введите название страны: ")
-#     top_n = int(input("Введите количество самолетов для вывода в топ N: "))
-#     filter_words = input("Введите названия стран для фильтрации по стране регистрации: ").split()
-#     altitude_range = input("Введите диапазон высот полета: ") # Пример: 100000 - 150000
-#
-#     filtered_aeroplanes = filter_aeroplanes(aeroplanes, filter_words)
-#
-#     ranged_aeroplanes = get_aeroplanes_by_altitude(aeroplanes, altitude_range)
-#
-#     sorted_aeroplanes = sort_aeroplanes(ranged_aeroplanes)
-#     top_aeroplanes = get_top_aeroplanes(sorted_aeroplanes, top_n)
-#     print_aeroplanes(top_aeroplanes)
-#
-#
-# if __name__ == "__main__":
-#     user_interaction()
+from src.aeroplanes import Aeroplane
+from src.api import AeroplanesAPI
+from src.saver import JSONSaver
+
+
+def user_interaction():
+    """
+    Функция для реализации основного функционала работы и взаимодействия с пользователем.
+    """
+    try:
+        country = input("Введите название страны: ")
+
+        api = AeroplanesAPI()
+        saver = JSONSaver()
+
+        aeroplanes = api.get_aeroplanes(country)
+        aeroplanes_country = Aeroplane.cast_to_object_list(aeroplanes)
+
+        # Фильтрация по стране регистрации
+        if input("Необходимо ли фильтрация по стране регистрации? y/n ").lower() == "y":
+            filter_country = input("Введите названия страны для фильтрации по стране регистрации: ")
+            countries = [c.strip() for c in filter_country.split(",")]
+            filtered_by_country = []
+            for country_name in countries:
+                filtered_by_country.extend(Aeroplane.filter_country(country_name, aeroplanes_country))
+            aeroplanes_country = filtered_by_country
+
+        # Фильтрация по высоте полёта
+        if input("Необходимо ли фильтрация по высоте полёта? y/n ").lower() == "y":
+            try:
+                altitude_range = int(input("Введите минимальную высоту полёта (м): "))
+                aeroplanes_country = Aeroplane.filter_altitude_range(altitude_range, aeroplanes_country)
+            except ValueError:
+                print("Некорректное значение высоты. Пропускаем фильтрацию.")
+
+        # Топ N самолётов
+        if input("Необходимо ли составить топ самолётов? y/n ").lower() == "y":
+            try:
+                top_n = int(input("Введите количество самолётов для вывода в топ N: "))
+                if top_n > len(aeroplanes_country):
+                    top_n = len(aeroplanes_country)
+                aeroplanes_country = Aeroplane.top_aeroplanes(top_n, aeroplanes_country)
+            except ValueError:
+                print("Некорректное число для топа.")
+
+        # Сохранение в файл
+        if aeroplanes_country:
+            saver.add_aeroplane(aeroplanes_country)
+
+            # Вывод результатов
+            print("\nРезультаты:")
+            for item in aeroplanes_country:
+                print(item)
+        else:
+            print("Нет данных для отображения.")
+
+    except Exception as e:
+        print(f"Ошибка: {e}")
+
+
+if __name__ == "__main__":
+    user_interaction()
