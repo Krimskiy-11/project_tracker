@@ -1,21 +1,54 @@
 class Aeroplane:
     """Класс для работы с информацией о самолетах."""
-    __slots__ = ('callsign', 'country', 'velocity', 'baro_altitude')
+
+    __slots__ = ("callsign", "country", "velocity", "baro_altitude")
 
     result = []
 
     def __init__(self, callsign=None, country=None, velocity=None, baro_altitude=None):
-        self.callsign = callsign
-        self.country = country
-        self.velocity = velocity
-        self.baro_altitude = baro_altitude
+        self.callsign = self._validate_callsign(callsign)
+        self.country = self._validate_country(country)
+        self.velocity = self._validate_velocity(velocity)
+        self.baro_altitude = self._validate_baro_altitude(baro_altitude)
+
+    def _validate_callsign(self, callsign):
+        """Приватный метод валидации позывного."""
+        if callsign is None:
+            return "Unknown"
+        if not isinstance(callsign, str):
+            raise ValueError("Callsign must be a string")
+        return callsign.strip()
+
+    def _validate_country(self, country):
+        """Приватный метод валидации страны."""
+        if country is None:
+            return "Unknown"
+        if not isinstance(country, str):
+            raise ValueError("Country must be a string")
+        return country.strip()
+
+    def _validate_velocity(self, velocity):
+        """Приватный метод валидации скорости."""
+        if velocity is None:
+            return 0.0
+        if isinstance(velocity, (int, float)) and velocity >= 0:
+            return float(velocity)
+        raise ValueError("Velocity must be a non-negative number")
+
+    def _validate_baro_altitude(self, baro_altitude):
+        """Приватный метод валидации высоты."""
+        if baro_altitude is None:
+            return None
+        if isinstance(baro_altitude, (int, float)):
+            return float(baro_altitude)
+        raise ValueError("Baro altitude must be a number")
 
     def __str__(self):
         return (
             f'callsign: "{self.callsign}", '
             f'country: "{self.country}", '
-            f'velocity: {self.velocity}, '
-            f'baro_altitude: {self.baro_altitude}\n'
+            f"velocity: {self.velocity}, "
+            f"baro_altitude: {self.baro_altitude}\n"
         )
 
     @classmethod
@@ -85,8 +118,8 @@ class Aeroplane:
         Метод для фильтрации самолётов по высоте полёта (больше или равно заданной).
         Использует магический метод __ge__.
         """
-        return [item for item in aeroplanes
-                if item.baro_altitude is not None and item >= altitude]
+        return [item for item in aeroplanes if item.baro_altitude is not None and item >= altitude]
+
 
 # {
 #     "time": 1766142246,                 // UNIX-время сервера OpenSky (секунды)

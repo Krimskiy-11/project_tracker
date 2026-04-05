@@ -4,7 +4,7 @@ from src.api import AeroplanesAPI
 
 
 class TestAeroplanesAPI:
-    @patch('requests.get')
+    @patch("requests.get")
     def test_successful_request(self, mock_get):
         """Тест успешного получения данных."""
         # Мок для OpenStreetMap

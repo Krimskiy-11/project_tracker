@@ -2,6 +2,7 @@ from src.aeroplanes import Aeroplane
 from src.api import AeroplanesAPI
 from src.saver import JSONSaver
 
+
 def user_interaction():
     """
     Функция для реализации основного функционала работы и взаимодействия с пользователем.
@@ -55,7 +56,6 @@ def user_interaction():
 
     except Exception as e:
         print(f"Ошибка: {e}")
-
 
 
 if __name__ == "__main__":

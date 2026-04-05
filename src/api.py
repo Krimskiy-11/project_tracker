@@ -1,17 +1,18 @@
 from abc import ABC, abstractmethod
 from requests import get
 
+
 class AbstractAPI(ABC):
     @abstractmethod
     def get_aeroplanes(self, country):
         pass
+
 
 class AeroplanesAPI(AbstractAPI):
     def __init__(self):
         self.__openstreetmap_url = "https://nominatim.openstreetmap.org/search"
         self.__opensky_url = "https://opensky-network.org/api/states/all?"
         self.__is_connected = False
-
 
     def _connect(self, url: str, params: dict = None, headers: dict = None):
         """
@@ -41,11 +42,7 @@ class AeroplanesAPI(AbstractAPI):
             "limit": 1,
         }
 
-        response = self._connect(
-            url=self.__openstreetmap_url,
-            params=params_nominatim,
-            headers=headers_nominatim
-        )
+        response = self._connect(url=self.__openstreetmap_url, params=params_nominatim, headers=headers_nominatim)
         data = response.json()
 
         if not data:

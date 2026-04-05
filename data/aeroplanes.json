@@ -58,5 +58,35 @@
         "country": "Greece",
         "velocity": 232.09,
         "baro_altitude": 10972.8
+    },
+    {
+        "callsign": "UAL2113",
+        "country": "United States",
+        "velocity": 213.96,
+        "baro_altitude": 6400.8
+    },
+    {
+        "callsign": "N759PA",
+        "country": "United States",
+        "velocity": 0.0,
+        "baro_altitude": null
+    },
+    {
+        "callsign": "SCX211",
+        "country": "United States",
+        "velocity": 245.91,
+        "baro_altitude": 12496.8
+    },
+    {
+        "callsign": "N4793F",
+        "country": "United States",
+        "velocity": 56.62,
+        "baro_altitude": 822.96
+    },
+    {
+        "callsign": "ASA472",
+        "country": "United States",
+        "velocity": 5.66,
+        "baro_altitude": null
     }
 ]

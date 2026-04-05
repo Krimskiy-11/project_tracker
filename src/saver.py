@@ -2,6 +2,7 @@ import os
 import json
 from abc import ABC, abstractmethod
 
+
 class AbstractJSON(ABC):
     @abstractmethod
     def add_aeroplane(self, vacancy):
@@ -14,6 +15,7 @@ class AbstractJSON(ABC):
     @abstractmethod
     def remove_aeroplane(self, callsign):
         pass
+
 
 class JSONSaver(AbstractJSON):
     def __init__(self, file_name="aeroplanes.json"):
@@ -31,18 +33,20 @@ class JSONSaver(AbstractJSON):
 
         for plane in vacancy:
             # Проверяем, есть ли уже такой самолёт (по позывному)
-            if not any(p.get('callsign') == plane.callsign for p in existing_data):
-                new_data.append({
-                    'callsign': plane.callsign,
-                    'country': plane.country,
-                    'velocity': plane.velocity,
-                    'baro_altitude': plane.baro_altitude
-                })
+            if not any(p.get("callsign") == plane.callsign for p in existing_data):
+                new_data.append(
+                    {
+                        "callsign": plane.callsign,
+                        "country": plane.country,
+                        "velocity": plane.velocity,
+                        "baro_altitude": plane.baro_altitude,
+                    }
+                )
 
         # Объединяем существующие и новые данные
         combined_data = existing_data + new_data
 
-        with open(self.__file_path, 'w', encoding='utf-8') as f:
+        with open(self.__file_path, "w", encoding="utf-8") as f:
             json.dump(combined_data, f, ensure_ascii=False, indent=4)
 
     def get_aeroplanes_from_file(self):
@@ -50,19 +54,19 @@ class JSONSaver(AbstractJSON):
         if not os.path.exists(self.__file_path):
             return []
         try:
-            with open(self.__file_path, 'r', encoding='utf-8') as f:
+            with open(self.__file_path, "r", encoding="utf-8") as f:
                 return json.load(f)
-        except (json.JSONDecodeError, IOError):
+        except json.JSONDecodeError, IOError:
             return []
 
     def remove_aeroplane(self, callsign: str):
         """Удаляет самолёт из файла по позывному."""
         data = self.get_aeroplanes_from_file()
-        filtered_data = [plane for plane in data if plane.get('callsign') != callsign]
+        filtered_data = [plane for plane in data if plane.get("callsign") != callsign]
 
-        with open(self.__file_path, 'w', encoding='utf-8') as f:
+        with open(self.__file_path, "w", encoding="utf-8") as f:
             json.dump(filtered_data, f, ensure_ascii=False, indent=4)
 
         return len(data) > len(filtered_data)  # True, если что-то удалили
 
-            # f.write(str(vacancy))
+        # f.write(str(vacancy))

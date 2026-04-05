@@ -2,6 +2,7 @@ import os
 from src.saver import JSONSaver
 from src.aeroplanes import Aeroplane
 
+
 class TestJSONSaver:
     def setup_method(self):
         """Подготовка перед тестом."""
@@ -21,7 +22,7 @@ class TestJSONSaver:
         self.saver.add_aeroplane([plane])
 
         data = self.saver.get_aeroplanes_from_file()
-        assert data[0]['callsign'] == "TEST123"
+        assert data[0]["callsign"] == "TEST123"
 
     def test_no_duplicates(self):
         """Тест предотвращения дубликатов."""
@@ -32,6 +33,7 @@ class TestJSONSaver:
 
         data = self.saver.get_aeroplanes_from_file()
         assert len(data) == 1
+
     def test_add_new_data(self):
         """Тест добавления новых данных."""
         plane1 = Aeroplane("FLT100", "Country1", 200.0, 3000.0)
@@ -42,7 +44,7 @@ class TestJSONSaver:
 
         data = self.saver.get_aeroplanes_from_file()
         assert len(data) == 2
-        assert data[1]['callsign'] == "FLT200"
+        assert data[1]["callsign"] == "FLT200"
 
     def test_remove_plane(self):
         """Тест удаления самолёта."""
@@ -54,7 +56,6 @@ class TestJSONSaver:
 
         data = self.saver.get_aeroplanes_from_file()
         assert len(data) == 0
-
 
     def test_empty_file(self):
         """Тест чтения пустого файла."""
